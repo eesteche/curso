@@ -29,4 +29,21 @@ public class ProductoController {
         return productoService.save(producto);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Producto> updateProducto(@PathVariable String id, @RequestBody Producto producto) {
+        return productoService.update(id, producto)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProducto(@PathVariable String id) {
+        boolean deleted = productoService.deleteById(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }

@@ -18,5 +18,20 @@ public class ProductoService {
     public Producto save(Producto producto) {
         return productoRepository.save(producto);
     }
-}
 
+    public Optional<Producto> update(String id, Producto producto) {
+        return productoRepository.findById(id).map(existing -> {
+            existing.setName(producto.getName());
+            existing.setCode(producto.getCode());
+            return productoRepository.save(existing);
+        });
+    }
+
+    public boolean deleteById(String id) {
+        if (productoRepository.existsById(id)) {
+            productoRepository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
+}

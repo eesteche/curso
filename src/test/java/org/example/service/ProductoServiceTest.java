@@ -46,9 +46,12 @@ class ProductoServiceTest {
     void testSave() {
         Producto producto = new Producto();
         producto.setName("Test");
+        producto.setCode(123);
         when(productoRepository.save(producto)).thenReturn(producto);
         Producto result = productoService.save(producto);
         assertEquals("Test", result.getName());
+        assertEquals(123, result.getCode());
     }
 }
+
 
